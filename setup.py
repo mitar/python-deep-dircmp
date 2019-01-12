@@ -1,7 +1,7 @@
 import os
 from setuptools import setup, find_packages
 
-PACKAGE_NAME = 'deep-dircmp'
+PACKAGE_NAME = 'deep_dircmp'
 
 
 def read_package_variable(key):
