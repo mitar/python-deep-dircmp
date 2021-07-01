@@ -28,12 +28,26 @@ class DeepDirCmp(filecmp.dircmp):
                 left_only.append(os.path.join(name, file))
         return left_only
 
+    def iter_left_only_recursive(self):
+        for i in self.left_only:
+            yield i
+        for name, subdir in self.subdirs.items():
+            for file in subdir.iter_left_only_recursive():
+                yield os.path.join(name, file)
+
     def get_right_only_recursive(self):
         right_only = list(self.right_only)
         for name, subdir in self.subdirs.items():
             for file in subdir.get_right_only_recursive():
                 right_only.append(os.path.join(name, file))
         return right_only
+
+    def iter_right_only_recursive(self):
+        for i in self.right_only:
+            yield i
+        for name, subdir in self.subdirs.items():
+            for file in subdir.iter_right_only_recursive():
+                yield os.path.join(name, file)
 
     def get_common_funny_recursive(self):
         common_funny = list(self.common_funny)
