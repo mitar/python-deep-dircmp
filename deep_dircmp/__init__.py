@@ -1,7 +1,7 @@
 import filecmp
 import os.path
 
-__version__ = '0.2.0'
+__version__ = '0.3.0'
 
 
 class DeepDirCmp(filecmp.dircmp):
@@ -56,6 +56,20 @@ class DeepDirCmp(filecmp.dircmp):
                 common_funny.append(os.path.join(name, file))
         return common_funny
 
+    def iter_same_files_recursive(self):
+        for i in self.same_files:
+            yield i
+        for name, subdir in self.subdirs.items():
+            for file in subdir.iter_same_files_recursive():
+                yield os.path.join(name, file)
+
+    def get_same_files_recursive(self):
+        same_files = list(self.same_files)
+        for name, subdir in self.subdirs.items():
+            for file in subdir.get_same_files_recursive():
+                same_files.append(os.path.join(name, file))
+        return same_files
+
     def get_diff_files_recursive(self):
         diff_files = list(self.diff_files)
         for name, subdir in self.subdirs.items():
@@ -65,6 +79,6 @@ class DeepDirCmp(filecmp.dircmp):
 
     # For our subclassed methods to be really used.
     methodmap = dict(filecmp.dircmp.methodmap,
-        subdirs=phase4,
-        same_files=phase3, diff_files=phase3, funny_files=phase3,
-    )
+                     subdirs=phase4,
+                     same_files=phase3, diff_files=phase3, funny_files=phase3,
+                     )
