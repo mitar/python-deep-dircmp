@@ -1,9 +1,9 @@
 # deep-dircmp
 
-![codeql](https://github.com/BercziSandor/python-deep-dircmp/actions/workflows/codeql.yml/badge.svg)
+![codeql](https://github.com/mitar/python-deep-dircmp/actions/workflows/codeql.yml/badge.svg)
 
 
-![python-package](https://github.com/BercziSandor/python-deep-dircmp/actions/workflows/python-package.yml/badge.svg)
+![python-package](https://github.com/mitar/python-deep-dircmp/actions/workflows/python-package.yml/badge.svg)
 
 
 A version of [dircmp](https://docs.python.org/3/library/filecmp.html#filecmp.dircmp)

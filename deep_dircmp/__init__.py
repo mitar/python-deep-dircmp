@@ -10,7 +10,8 @@ class DeepDirCmp(filecmp.dircmp):
     """
 
     def phase3(self):
-        xx = filecmp.cmpfiles(self.left, self.right, self.common_files, shallow=False)
+        xx = filecmp.cmpfiles(self.left, self.right, self.common_files,
+                              shallow=False)
         self.same_files, self.diff_files, self.funny_files = xx
 
     # TODO: Remove once this is merged, released, and we move to it: https://github.com/python/cpython/pull/5088
@@ -79,6 +80,6 @@ class DeepDirCmp(filecmp.dircmp):
 
     # For our subclassed methods to be really used.
     methodmap = dict(filecmp.dircmp.methodmap,
-                     subdirs=phase4,
-                     same_files=phase3, diff_files=phase3, funny_files=phase3,
-                     )
+        subdirs=phase4,
+        same_files=phase3, diff_files=phase3, funny_files=phase3,
+    )
