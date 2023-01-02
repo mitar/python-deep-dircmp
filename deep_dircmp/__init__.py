@@ -10,8 +10,7 @@ class DeepDirCmp(filecmp.dircmp):
     """
 
     def phase3(self):
-        xx = filecmp.cmpfiles(self.left, self.right, self.common_files,
-                              shallow=False)
+        xx = filecmp.cmpfiles(self.left, self.right, self.common_files, shallow=False)
         self.same_files, self.diff_files, self.funny_files = xx
 
     # TODO: Remove once this is merged, released, and we move to it: https://github.com/python/cpython/pull/5088
