@@ -1,3 +1,4 @@
+import os.path
 import unittest
 from pathlib import Path
 
@@ -14,7 +15,9 @@ class DeepDirCmpUnittest(unittest.TestCase):
             {
                 "directory_in_a",
                 "file_only_in_a.md",
-                "common_directory/deep_file_in_a_common_directory.md",
+                os.path.join('common_directory',
+                             'deep_file_in_a_common_directory.md')
+
             }
         )
 
@@ -30,6 +33,24 @@ class DeepDirCmpUnittest(unittest.TestCase):
         self.assertEqual(
             deep_cmp.get_right_only_recursive(),
             list(deep_cmp.iter_right_only_recursive()),
+        )
+
+    def test_get_same_files_recursive(self):
+        deep_cmp = DeepDirCmp(Path("test/test_a"), Path("test/test_b"))
+        same_files = deep_cmp.get_same_files_recursive()
+        self.assertEqual(
+            set(same_files),
+            {
+                'file_both_in_a_b.md',
+                os.path.join('common_directory', 'common_deep_file.md'),
+            }
+        )
+
+    def test_iter_same_files_recursive(self):
+        deep_cmp = DeepDirCmp(Path("test/test_a"), Path("test/test_b"))
+        self.assertEqual(
+            deep_cmp.get_same_files_recursive(),
+            list(deep_cmp.get_same_files_recursive()),
         )
 
 
